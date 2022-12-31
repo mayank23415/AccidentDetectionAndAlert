@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSource.OnLocationChangedListener{
 
     lateinit var userLocationMarker :Marker
+    lateinit var googleMap : GoogleMap
 
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -36,17 +37,15 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
         val techno = LatLng(lt ,lg)
         //Toast.makeText(context,lt.toString() + lg.toString(),Toast.LENGTH_SHORT).show()
 
-        googleMap.addMarker(MarkerOptions().position(techno).title("Me"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,17f))
-        Toast.makeText(context,Vals.lati.toString(), Toast.LENGTH_SHORT).show()
+//        googleMap.addMarker(MarkerOptions().position(techno).title("Me"))
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,17f))
+//        Toast.makeText(context,Vals.lati.toString(), Toast.LENGTH_SHORT).show()
 
 
 
-        val markerOptions = MarkerOptions().position(LatLng(lt,lg))
+        val markerOptions = MarkerOptions().position(techno)
         googleMap.addMarker(markerOptions)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,17f))
-
-
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,15f))
 
     }
 
@@ -57,7 +56,7 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
         val markerOptions = MarkerOptions().position(techno).title("Me")
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ac))
         userLocationMarker = googleMap.addMarker(markerOptions)!!
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,17f))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(techno,15f))
 
         startCurrentLocationUpdates(googleMap)
 
@@ -95,7 +94,7 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
                             if(userLocationMarker == null){
                                  //create new marker
                                      val markerOptions = MarkerOptions().position(latlng).title("Me")
-                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.kokonod))
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_logo))
                                 markerOptions.rotation(location.bearing)
                                 markerOptions.anchorU
                                 markerOptions.anchorV
@@ -125,7 +124,7 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
         savedInstanceState: Bundle?
     ): View? {
 
-        val supportMapFragment : SupportMapFragment = childFragmentManager.findFragmentById(R.id.myMapView) as SupportMapFragment
+
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -139,20 +138,17 @@ class MapsFragment : Fragment() ,LocationListener,OnMapReadyCallback,LocationSou
     override fun onLocationChanged(location: Location) {
         location.latitude=Vals.lati
         location.longitude=Vals.longi
-        //setUserLocationMarker(location)
+        setUserLocationMarker(location)
     }
 
 
 
-//    fun setUserLocationMarker(location: Location){
-//
-//
-//
-//        val latlng = LatLng(location.latitude,location.longitude)
-//        val markerOptions = MarkerOptions()
-//        markerOptions.position(latlng)
-//        userLocationMarker = googleMap.addMarker(markerOptions)!!
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,17f))
-//    }
+    fun setUserLocationMarker(location: Location){
+        val latlng = LatLng(location.latitude,location.longitude)
+        val markerOptions = MarkerOptions()
+        markerOptions.position(latlng)
+        userLocationMarker = googleMap.addMarker(markerOptions)!!
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,15f))
+    }
 
 }

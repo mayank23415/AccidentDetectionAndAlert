@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         //start sensor activity
         setUpSensor()
         //load google maps locaiton
-//        loadMap()
+        loadMap()
 
 
         //load user details
@@ -413,14 +413,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
 
-                        runOnUiThread {
-                            lat.text = location.latitude.toString()
-                            long.text = location.longitude.toString()
-                            loc.text= lastUpdatedLocation.toString()
-                            alertSystem(Vals.lati,Vals.longi)
-                            speedMeter.text= "${speedHrit.toString()}"
-                            speedProgressBar.progress=(speedHrit*0.55).toInt()
-                        }
+//                        runOnUiThread {
+//                            lat.text = location.latitude.toString()
+//                            long.text = location.longitude.toString()
+//                            loc.text= lastUpdatedLocation.toString()
+//                            alertSystem(Vals.lati,Vals.longi)
+//                            speedMeter.text= "${speedHrit.toString()}"
+//                            speedProgressBar.progress=(speedHrit*0.55).toInt()
+//                        }
 
                         lastUpdatedLat=location.latitude
                         lastUpdatedLong=location.longitude
@@ -432,7 +432,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         locationRes=locationResult.lastLocation
 
 
-//                        setUpFragment()
+                        setUpFragment()
 
                     }
                     // Few more things we can do here:
@@ -488,22 +488,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         return cityName
     }
     //Accident Prone Area Alert
-    private fun alertSystem(lat: Double,long : Double){
-        val d  : Distance= Distance.getInstance()
-        val check : Boolean= d.caldistance(lat,long)
-        Handler().postDelayed({
-            if(check == true){
-                val my = Toast(this)
-                my.apply {
-                    val layout : View = LinearLayout.inflate(applicationContext,R.layout.custom_toast_accident_alert,null)
-                    duration=Toast.LENGTH_SHORT
-                    setGravity(Gravity.TOP,0,0)
-                    view=layout
-                }.show()
-            }
-        }, 3000)
-
-    }
+//    private fun alertSystem(lat: Double,long : Double){
+//        val d  : Distance= Distance.getInstance()
+//        val check : Boolean= d.caldistance(lat,long)
+//        Handler().postDelayed({
+//            if(check == true){
+//                val my = Toast(this)
+//                my.apply {
+//                    val layout : View = LinearLayout.inflate(applicationContext,R.layout.custom_toast_accident_alert,null)
+//                    duration=Toast.LENGTH_SHORT
+//                    setGravity(Gravity.TOP,0,0)
+//                    view=layout
+//                }.show()
+//            }
+//        }, 3000)
+//
+//    }
 
 
     private fun loadUserDetails(){

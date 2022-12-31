@@ -35,7 +35,7 @@ public class sendSms {
 ////        results.add("9830561274");
 ////        results.add("8240290384");
 //        results.add("7586949429");
-//        results.add("8394026174");
+        results.add("8394026174");
 //        //results.add("9997017879");
 //        //results.add("9634418131");
 //        //results.add("7417093980");
@@ -61,9 +61,10 @@ public class sendSms {
         SmsManager smsManager =  SmsManager.getDefault();
         try {
             String txt ="Accident Location : "+lastUpdatedLocation.toString();
-            String mapLink = "https://www.google.com/maps/search/?api=1&query="+"29.8923161"+ "," + "77.9601853";
-            for (int i = 0; i < results.toArray().length; i++)
+            String mapLink = "https://www.google.com/maps/search/?api=1&query="+lastUpdatedLat.toString()+ "," + lastUpdatedLong.toString();
+            for (int i = 0; i < results.toArray().length; i++) {
                 smsManager.sendTextMessage(results.get(i), null, txt+ mapLink.toString(), null, null);
+            }
             Toast.makeText(context,"SMS sent",Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
