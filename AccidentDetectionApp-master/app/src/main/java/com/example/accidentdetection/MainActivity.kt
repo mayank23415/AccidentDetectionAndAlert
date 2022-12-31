@@ -221,7 +221,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val accValue : TextView = findViewById(R.id.acc_value)
         accValue.text= (GVAL*25).toInt().toString()
 
-        if(GVAL > 4){
+        if(GVAL > 5){
             Toast.makeText(this,"$GVAL",Toast.LENGTH_LONG).show()
             return true
         }
@@ -376,7 +376,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     for (location in locationResult.locations) {
                         val lat : TextView = findViewById(R.id.lat_value)
                         val long : TextView = findViewById(R.id.long_value)
-                        lastUpdatedLocation =getCity(location.latitude,location.longitude).toString()
+                        lastUpdatedLocation = getCity(location.latitude,location.longitude)
                         val loc : TextView = findViewById(R.id.loc_value)
                         val speedMeter : TextView = findViewById(R.id.speed_value)
                         val speedProgressBar :  ProgressBar = findViewById(R.id.speed_progress_bar)
@@ -398,29 +398,29 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             }
                         }
 
-//                        var speedhrit = if (location.hasSpeed()) {
-//                            location.speed
-//                        } else {
-//                            previousLocation?.let { lastLocation ->
-//                                // Convert milliseconds to seconds
-//                                val elapsedTimeInSeconds = (location.time - lastLocation.time) / 1_000
-//                                val distanceInMeters = lastLocation.distanceTo(location)
-//                                // Speed in m/s
-//                                (distanceInMeters / elapsedTimeInSeconds)*3.6
-//                            } ?: 0.0
-//                        }
-//                        previousLocation = location
+                        var speedhrit = if (location.hasSpeed()) {
+                            location.speed
+                        } else {
+                            previousLocation?.let { lastLocation ->
+                                // Convert milliseconds to seconds
+                                val elapsedTimeInSeconds = (location.time - lastLocation.time) / 1_000
+                                val distanceInMeters = lastLocation.distanceTo(location)
+                                // Speed in m/s
+                                (distanceInMeters / elapsedTimeInSeconds)*3.6
+                            } ?: 0.0
+                        }
+                        previousLocation = location
 
 
 
-//                        runOnUiThread {
-//                            lat.text = location.latitude.toString()
-//                            long.text = location.longitude.toString()
-//                            loc.text= lastUpdatedLocation.toString()
-//                            alertSystem(Vals.lati,Vals.longi)
-//                            speedMeter.text= "${speedHrit.toString()}"
-//                            speedProgressBar.progress=(speedHrit*0.55).toInt()
-//                        }
+                        runOnUiThread {
+                            lat.text = location.latitude.toString()
+                            long.text = location.longitude.toString()
+                            loc.text= lastUpdatedLocation.toString()
+                            //alertSystem(Vals.lati,Vals.longi)
+                            speedMeter.text = speedHrit.toString()
+                            speedProgressBar.progress=(speedHrit*0.55).toInt()
+                        }
 
                         lastUpdatedLat=location.latitude
                         lastUpdatedLong=location.longitude
